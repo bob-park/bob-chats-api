@@ -1,0 +1,10 @@
+services:
+  bob-chats-api:
+    container_name: bob-chats-api
+    image: ghcr.io/bob-park/bob-chats-api
+    build:
+      dockerfile: ./Dockerfile
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
