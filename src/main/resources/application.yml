@@ -4,6 +4,10 @@ server:
 
 ## spring
 spring:
+  application:
+    name: bob-chat-api
+  main:
+    banner-mode: log
   rsocket:
     server:
       port: 8081
@@ -12,6 +16,7 @@ spring:
     url: r2dbc:postgresql://${postgresql_host}/${postgresql_database_name}
     username: ${postgresql_username}
     password: ${postgresql_password}
+
 
 
 
