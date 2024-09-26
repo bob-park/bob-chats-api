@@ -47,6 +47,8 @@ dependencies {
 
     implementation 'org.postgresql:r2dbc-postgresql:1.0.5.RELEASE'
 
+    implementation 'com.github.gavlyukovskiy:flexy-pool-spring-boot-starter:1.9.0'
+
     // lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -56,6 +58,9 @@ dependencies {
     // guava
     implementation 'com.google.guava:guava:31.1-jre'
     implementation 'com.google.code.gson:gson:2.9.0'
+
+    // apache commons
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
 
 }
 

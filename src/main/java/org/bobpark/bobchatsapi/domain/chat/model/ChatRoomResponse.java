@@ -1,6 +1,7 @@
 package org.bobpark.bobchatsapi.domain.chat.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Builder;
 
@@ -8,7 +9,7 @@ import lombok.Builder;
 public record ChatRoomResponse(Long id,
                                String name,
                                String description,
-                               String userId,
                                LocalDateTime createdDate,
-                               LocalDateTime lastModifiedDate) {
+                               LocalDateTime lastModifiedDate,
+                               List<ChatRoomUserResponse> users) {
 }
