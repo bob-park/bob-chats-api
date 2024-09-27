@@ -30,6 +30,7 @@ import org.bobpark.bobchatsapi.domain.chat.repository.ChatRoomUserRepository;
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class ChatRoomService {
 
     private final ApplicationEventPublisher eventPublisher;

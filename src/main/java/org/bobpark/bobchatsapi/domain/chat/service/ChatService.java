@@ -6,6 +6,8 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,4 +108,23 @@ public class ChatService {
                     .subscribe());
 
     }
+
+    @Transactional(readOnly = true)
+    public Mono<Page<ChatResponse>> getAllByRoomId(long roomId, Pageable pageable) {
+        return chatRepository.findAllByRoomId(roomId, pageable)
+            .map(result ->
+                result.map(item ->
+                    ChatResponse.builder()
+                        .id(item.getId())
+                        .room(
+                            ChatRoomResponse.builder()
+                                .id(item.getRoomId())
+                                .build())
+                        .userId(item.getUserId())
+                        .contents(item.getContents())
+                        .createdDate(item.getCreatedDate())
+                        .lastModifiedDate(item.getLastModifiedDate())
+                        .build()));
+    }
+
 }

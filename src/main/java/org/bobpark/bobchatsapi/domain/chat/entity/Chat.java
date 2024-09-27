@@ -3,6 +3,8 @@ package org.bobpark.bobchatsapi.domain.chat.entity;
 import static com.google.common.base.Preconditions.*;
 import static org.apache.commons.lang3.ObjectUtils.*;
 
+import java.time.LocalDateTime;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,7 +37,8 @@ public class Chat extends BaseEntity {
     private ChatRoom room;
 
     @Builder
-    private Chat(Long id, Long roomId, String userId, String contents) {
+    private Chat(Long id, Long roomId, String userId, String contents, LocalDateTime createdDate,
+        LocalDateTime lastModifiedDate) {
 
         checkArgument(isNotEmpty(roomId), "roomId must be provided.");
         checkArgument(StringUtils.isNotBlank(userId), "userId must be provided.");
@@ -45,6 +48,8 @@ public class Chat extends BaseEntity {
         this.roomId = roomId;
         this.userId = userId;
         this.contents = contents;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     public void setRoom(ChatRoom room) {
