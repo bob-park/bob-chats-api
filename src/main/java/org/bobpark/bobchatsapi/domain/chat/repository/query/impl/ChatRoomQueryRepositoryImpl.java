@@ -4,12 +4,12 @@ import java.time.LocalDateTime;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.data.relational.core.sql.SQL;
 import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Repository;
 
 import io.micrometer.common.util.StringUtils;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import org.bobpark.bobchatsapi.domain.chat.entity.ChatRoom;
 import org.bobpark.bobchatsapi.domain.chat.model.SearchChatRoomRequest;
@@ -58,6 +58,17 @@ public class ChatRoomQueryRepositoryImpl implements ChatRoomQueryRepository {
                     .lastModifiedDate(row.get("last_modified_date", LocalDateTime.class))
                     .build())
             .all();
+    }
+
+    @Override
+    public Mono<ChatRoom> saveWithUser(ChatRoom chatRoom) {
+
+        StringBuilder queryBuilder = new StringBuilder();
+
+
+
+
+        return null;
     }
 
 }

@@ -32,7 +32,6 @@ public class ChatRoomUser {
     @Builder
     private ChatRoomUser(Long id, Long roomId, String userId) {
 
-        checkArgument(isNotEmpty(roomId), "roomId must be provided.");
         checkArgument(isNotEmpty(userId), "userId must be provided.");
 
         this.id = id;
@@ -42,5 +41,6 @@ public class ChatRoomUser {
 
     public void setRoom(ChatRoom room) {
         this.room = room;
+        this.roomId = room.getId();
     }
 }

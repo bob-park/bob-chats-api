@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.ToString.Exclude;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -29,9 +30,11 @@ public class ChatRoom extends BaseEntity {
     private String name;
     private String description;
 
+    @Exclude
     @Transient
     private List<ChatRoomUser> users = new ArrayList<>();
 
+    @Exclude
     @Transient
     private List<Chat> chats = new ArrayList<>();
 

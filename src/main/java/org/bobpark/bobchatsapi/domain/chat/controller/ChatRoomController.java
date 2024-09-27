@@ -1,7 +1,5 @@
 package org.bobpark.bobchatsapi.domain.chat.controller;
 
-import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -21,7 +19,6 @@ import org.bobpark.bobchatsapi.domain.chat.model.ChatRoomResponse;
 import org.bobpark.bobchatsapi.domain.chat.model.ChatRoomUserResponse;
 import org.bobpark.bobchatsapi.domain.chat.model.CreateChatRoomRequest;
 import org.bobpark.bobchatsapi.domain.chat.model.SearchChatRoomRequest;
-import org.bobpark.bobchatsapi.domain.chat.model.UserRequest;
 import org.bobpark.bobchatsapi.domain.chat.service.ChatRoomService;
 
 @RequiredArgsConstructor

@@ -5,8 +5,10 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.reactive.TransactionalOperator;
 
 import com.google.common.collect.Lists;
 
@@ -15,6 +17,7 @@ import reactor.core.publisher.Mono;
 
 import org.bobpark.bobchatsapi.domain.chat.entity.ChatRoom;
 import org.bobpark.bobchatsapi.domain.chat.entity.ChatRoomUser;
+import org.bobpark.bobchatsapi.domain.chat.event.AddChatRoomUserEvent;
 import org.bobpark.bobchatsapi.domain.chat.model.AddChatRoomUserRequest;
 import org.bobpark.bobchatsapi.domain.chat.model.ChatRoomResponse;
 import org.bobpark.bobchatsapi.domain.chat.model.ChatRoomUserResponse;
@@ -28,8 +31,9 @@ import org.bobpark.bobchatsapi.domain.chat.repository.ChatRoomUserRepository;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true)
 public class ChatRoomService {
+
+    private final ApplicationEventPublisher eventPublisher;
 
     private final ChatRoomRepository chatRoomRepository;
     private final ChatRoomUserRepository chatRoomUserRepository;
@@ -43,9 +47,19 @@ public class ChatRoomService {
                 .description(createRequest.description())
                 .build();
 
-        Mono<ChatRoom> result = chatRoomRepository.save(createdRoom);
+        return chatRoomRepository.save(createdRoom)
+            .doOnSuccess(item -> {
 
-        return result.map(this::from);
+                for (UserRequest user : createRequest.users()) {
+                    eventPublisher.publishEvent(
+                        AddChatRoomUserEvent.builder()
+                            .roomId(item.getId())
+                            .userId(user.userId())
+                            .build());
+                }
+
+            })
+            .map(this::from);
 
     }
 
