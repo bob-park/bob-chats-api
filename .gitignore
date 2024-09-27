@@ -38,3 +38,5 @@ out/
 
 ### project ###
 *-dev.yml
+
+*.DS_Store
