@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.reactive.TransactionalOperator;
 
 import com.google.common.collect.Lists;
 
@@ -65,6 +64,11 @@ public class ChatRoomService {
 
     public Flux<ChatRoomResponse> getAll(SearchChatRoomRequest searchRequest) {
         return chatRoomRepository.search(searchRequest)
+            .map(this::from);
+    }
+
+    public Mono<ChatRoomResponse> getById(long roomId){
+        return chatRoomRepository.findById(roomId)
             .map(this::from);
     }
 

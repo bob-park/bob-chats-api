@@ -39,13 +39,19 @@ public class ChatRoomController {
         return chatRoomService.getAll(searchRequest);
     }
 
+    @GetMapping(path = "{roomId:\\d+}")
+    public Mono<ChatRoomResponse> getById(@PathVariable long roomId) {
+        return chatRoomService.getById(roomId);
+    }
+
     @GetMapping(path = "{roomId:\\d+}/users")
     public Flux<ChatRoomUserResponse> getUsers(@PathVariable Long roomId) {
         return chatRoomService.getUsers(roomId);
     }
 
     @PostMapping(path = "{roomId:\\d+}/users")
-    public Flux<ChatRoomUserResponse> addUsers(@PathVariable Long roomId, @RequestBody AddChatRoomUserRequest addRequest) {
+    public Flux<ChatRoomUserResponse> addUsers(@PathVariable Long roomId,
+        @RequestBody AddChatRoomUserRequest addRequest) {
         return chatRoomService.addUser(roomId, addRequest);
     }
 }
