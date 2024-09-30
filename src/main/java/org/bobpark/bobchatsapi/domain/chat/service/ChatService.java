@@ -58,8 +58,17 @@ public class ChatService {
 
             })
             .doOnError(error -> {
+                log.error("rsocket error - {}", error.getMessage(), error);
             })
-            .doFinally(consumer -> participants.remove(subRequest.id()))
+            .doFinally(consumer -> {
+                List<RSocketRequester> requesters = participants.get(subRequest.id());
+
+                if (requesters.contains(requester)) {
+                    requesters.remove(requester);
+                    log.debug("disconnected...");
+                }
+
+            })
             .subscribe();
     }
 
